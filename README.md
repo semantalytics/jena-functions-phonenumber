@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/semantalytics/stardog-kibbles.svg?branch=master)](https://travis-ci.org/semantalytics/stardog-kibbles)
+[![Build Status](https://travis-ci.org/semantalytics/stardog-kibbles.svg?branch=master)](https://travis-ci.org/semantalytics-stardog/kibbles-phonenumber)
 
-# Stardog Kibbles
+# Stardog Kibbles Phonenumber
 
-A collection of [Stardog](http://stardog.com) plugins
+A [Stardog](http://stardog.com) plugin providing functions for working with phone numbers
 

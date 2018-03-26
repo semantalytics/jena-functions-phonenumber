@@ -1,5 +1,3 @@
-
-
 package com.semantalytics.stardog.kibble.phonenumber;
 
 import com.complexible.stardog.plan.filter.ExpressionEvaluationException;
@@ -9,17 +7,14 @@ import com.complexible.stardog.plan.filter.functions.Function;
 import com.complexible.stardog.plan.filter.functions.UserDefinedFunction;
 import org.openrdf.model.Value;
 
-import static com.complexible.common.rdf.model.Values.*;
-import static com.github.davidmoten.geo.GeoHash.*;
+public final class ExampleNumberForNonGeoEntity extends AbstractFunction implements UserDefinedFunction {
 
-public final class IsAlphaNumber extends AbstractFunction implements UserDefinedFunction {
-
-    protected IsAlphaNumber() {
-        super(2, PhoneNumberVocabulary.isAlphaNumber.stringValue());
+    protected ExampleNumberForNonGeoEntity() {
+        super(2, PhoneNumberVocabulary.exampleNumberForNonGeoEntity.stringValue());
     }
 
-    private IsAlphaNumber(final IsAlphaNumber isAlphaNumber) {
-        super(isAlphaNumber);
+    private ExampleNumberForNonGeoEntity(final ExampleNumberForNonGeoEntity exampleNumberForNonGeoEntity) {
+        super(exampleNumberForNonGeoEntity);
     }
 
     @Override
@@ -30,7 +25,7 @@ public final class IsAlphaNumber extends AbstractFunction implements UserDefined
 
     @Override
     public Function copy() {
-        return new IsAlphaNumber(this);
+        return new ExampleNumberForNonGeoEntity(this);
     }
 
     @Override
@@ -40,6 +35,6 @@ public final class IsAlphaNumber extends AbstractFunction implements UserDefined
 
     @Override
     public String toString() {
-        return PhoneNumberVocabulary.isAlphaNumber.name();
+        return PhoneNumberVocabulary.exampleNumberForNonGeoEntity.name();
     }
 }

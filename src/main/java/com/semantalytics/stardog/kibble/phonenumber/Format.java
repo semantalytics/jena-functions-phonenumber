@@ -6,17 +6,20 @@ import com.complexible.stardog.plan.filter.functions.AbstractFunction;
 import com.complexible.stardog.plan.filter.functions.UserDefinedFunction;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import org.openrdf.model.Value;
 
 import static com.complexible.common.rdf.model.Values.literal;
 
 public class Format extends AbstractFunction implements UserDefinedFunction {
 
-    private Phonenumber.PhoneNumber phoneNumber = new Phonenumber.PhoneNumber();
+    private final PhoneNumber phoneNumber = new PhoneNumber();
+    private final PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
 
     protected Format() {
-        super(1, PhoneNumberVocabulary.format.stringValue());
+        super(3, PhoneNumberVocabulary.format.stringValue());
     }
 
     public Format(final Format next) {
@@ -29,12 +32,27 @@ public class Format extends AbstractFunction implements UserDefinedFunction {
         final String number = assertStringLiteral(values[0]).stringValue();
         final String regionCode = assertStringLiteral(values[1]).stringValue();
 
-        PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
 
         try {
             phoneNumberUtil.parse(number, regionCode, phoneNumber);
-            return literal(phoneNumberUtil.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL));
 
+            switch (PhoneNumberFormat.valueOf(assertStringLiteral(values[2]).stringValue())) {
+                case NATIONAL: {
+                    return literal(phoneNumberUtil.format(phoneNumber, PhoneNumberFormat.NATIONAL));
+                }
+                case RFC3966: {
+                    return literal(phoneNumberUtil.format(phoneNumber, PhoneNumberFormat.RFC3966));
+                }
+                case E164: {
+                    return literal(phoneNumberUtil.format(phoneNumber, PhoneNumberFormat.E164));
+                }
+                case INTERNATIONAL: {
+                    return literal(phoneNumberUtil.format(phoneNumber, PhoneNumberFormat.INTERNATIONAL));
+                }
+                default: {
+                    throw new ExpressionEvaluationException("Unknown regionCode " + regionCode);
+                }
+            }
         } catch (NumberParseException e) {
             throw new ExpressionEvaluationException(e);
         }

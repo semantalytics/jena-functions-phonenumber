@@ -1,25 +1,19 @@
-
-
 package com.semantalytics.stardog.kibble.phonenumber;
 
 import com.complexible.stardog.plan.filter.ExpressionEvaluationException;
 import com.complexible.stardog.plan.filter.ExpressionVisitor;
 import com.complexible.stardog.plan.filter.functions.AbstractFunction;
-import com.complexible.stardog.plan.filter.functions.Function;
 import com.complexible.stardog.plan.filter.functions.UserDefinedFunction;
 import org.openrdf.model.Value;
 
-import static com.complexible.common.rdf.model.Values.*;
-import static com.github.davidmoten.geo.GeoHash.*;
+public final class IsNumberMatch extends AbstractFunction implements UserDefinedFunction {
 
-public final class IsAlphaNumber extends AbstractFunction implements UserDefinedFunction {
-
-    protected IsAlphaNumber() {
-        super(2, PhoneNumberVocabulary.isAlphaNumber.stringValue());
+    protected IsNumberMatch() {
+        super(2, PhoneNumberVocabulary.isNumberMatch.stringValue());
     }
 
-    private IsAlphaNumber(final IsAlphaNumber isAlphaNumber) {
-        super(isAlphaNumber);
+    private IsNumberMatch(final IsNumberMatch isNumberMatch) {
+        super(isNumberMatch);
     }
 
     @Override
@@ -29,8 +23,8 @@ public final class IsAlphaNumber extends AbstractFunction implements UserDefined
     }
 
     @Override
-    public Function copy() {
-        return new IsAlphaNumber(this);
+    public IsNumberMatch copy() {
+        return new IsNumberMatch(this);
     }
 
     @Override
@@ -40,6 +34,6 @@ public final class IsAlphaNumber extends AbstractFunction implements UserDefined
 
     @Override
     public String toString() {
-        return PhoneNumberVocabulary.isAlphaNumber.name();
+        return PhoneNumberVocabulary.isNumberMatch.name();
     }
 }

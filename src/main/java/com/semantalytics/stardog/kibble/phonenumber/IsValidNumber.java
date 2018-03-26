@@ -10,17 +10,19 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import org.openrdf.model.Value;
 
 import static com.complexible.common.rdf.model.Values.literal;
+import static com.google.i18n.phonenumbers.Phonenumber.*;
 
-public class IsValid extends AbstractFunction implements UserDefinedFunction {
+public class IsValidNumber extends AbstractFunction implements UserDefinedFunction {
 
-    private Phonenumber.PhoneNumber phoneNumber = new Phonenumber.PhoneNumber();
+    private final PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+    private final PhoneNumber phoneNumber = new PhoneNumber();
 
-    protected IsValid() {
-        super(1, PhoneNumberVocabulary.isValid.stringValue());
+    protected IsValidNumber() {
+        super(1, PhoneNumberVocabulary.isValidNumber.stringValue());
     }
 
-    public IsValid(final IsValid isValid) {
-        super(isValid);
+    public IsValidNumber(final IsValidNumber isValidNumber) {
+        super(isValidNumber);
     }
 
     @Override
@@ -29,11 +31,10 @@ public class IsValid extends AbstractFunction implements UserDefinedFunction {
         final String number = assertStringLiteral(values[0]).stringValue();
         final String regionCode = assertStringLiteral(values[1]).stringValue();
 
-        PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
-
         try {
 
-            return literal(phoneNumberUtil.parse(number, regionCode, phoneNumber).isValid());
+            phoneNumberUtil.parse(number, regionCode, phoneNumber);
+            return literal(phoneNumberUtil.isValidNumber(phoneNumber));
 
         } catch (NumberParseException e) {
             throw new ExpressionEvaluationException(e);
@@ -41,8 +42,8 @@ public class IsValid extends AbstractFunction implements UserDefinedFunction {
     }
 
     @Override
-    public Format copy() {
-        return new IsValid(this);
+    public IsValidNumber copy() {
+        return new IsValidNumber(this);
     }
 
     @Override
@@ -52,6 +53,6 @@ public class IsValid extends AbstractFunction implements UserDefinedFunction {
 
     @Override
     public String toString() {
-        return PhoneNumberVocabulary.isValid.name();
+        return PhoneNumberVocabulary.isValidNumber.name();
     }
 }

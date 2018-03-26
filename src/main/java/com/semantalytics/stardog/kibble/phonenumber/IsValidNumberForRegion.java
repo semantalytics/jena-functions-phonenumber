@@ -1,5 +1,3 @@
-
-
 package com.semantalytics.stardog.kibble.phonenumber;
 
 import com.complexible.stardog.plan.filter.ExpressionEvaluationException;
@@ -9,17 +7,14 @@ import com.complexible.stardog.plan.filter.functions.Function;
 import com.complexible.stardog.plan.filter.functions.UserDefinedFunction;
 import org.openrdf.model.Value;
 
-import static com.complexible.common.rdf.model.Values.*;
-import static com.github.davidmoten.geo.GeoHash.*;
+public final class IsValidNumberForRegion extends AbstractFunction implements UserDefinedFunction {
 
-public final class IsAlphaNumber extends AbstractFunction implements UserDefinedFunction {
-
-    protected IsAlphaNumber() {
-        super(2, PhoneNumberVocabulary.isAlphaNumber.stringValue());
+    protected IsValidNumberForRegion() {
+        super(2, PhoneNumberVocabulary.isValidNumberForRegion.stringValue());
     }
 
-    private IsAlphaNumber(final IsAlphaNumber isAlphaNumber) {
-        super(isAlphaNumber);
+    private IsValidNumberForRegion(final IsValidNumberForRegion isValidNumberForRegion) {
+        super(isValidNumberForRegion);
     }
 
     @Override
@@ -30,7 +25,7 @@ public final class IsAlphaNumber extends AbstractFunction implements UserDefined
 
     @Override
     public Function copy() {
-        return new IsAlphaNumber(this);
+        return new IsValidNumberForRegion(this);
     }
 
     @Override
@@ -40,6 +35,6 @@ public final class IsAlphaNumber extends AbstractFunction implements UserDefined
 
     @Override
     public String toString() {
-        return PhoneNumberVocabulary.isAlphaNumber.name();
+        return PhoneNumberVocabulary.isValidNumberForRegion.name();
     }
 }

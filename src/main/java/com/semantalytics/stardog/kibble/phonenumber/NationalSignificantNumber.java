@@ -1,4 +1,3 @@
-
 package com.semantalytics.stardog.kibble.phonenumber;
 
 import com.complexible.stardog.plan.filter.ExpressionEvaluationException;
@@ -8,17 +7,14 @@ import com.complexible.stardog.plan.filter.functions.Function;
 import com.complexible.stardog.plan.filter.functions.UserDefinedFunction;
 import org.openrdf.model.Value;
 
-import static com.complexible.common.rdf.model.Values.*;
-import static com.github.davidmoten.geo.GeoHash.*;
+public final class NationalSignificantNumber extends AbstractFunction implements UserDefinedFunction {
 
-public final class IsAlphaNumber extends AbstractFunction implements UserDefinedFunction {
-
-    protected IsAlphaNumber() {
-        super(2, PhoneNumberVocabulary.isAlphaNumber.stringValue());
+    protected NationalSignificantNumber() {
+        super(2, PhoneNumberVocabulary.nationalSignificantNumber.stringValue());
     }
 
-    private IsAlphaNumber(final IsAlphaNumber isAlphaNumber) {
-        super(isAlphaNumber);
+    private NationalSignificantNumber(final NationalSignificantNumber nationalSignificantNumber) {
+        super(nationalSignificantNumber);
     }
 
     @Override
@@ -29,7 +25,7 @@ public final class IsAlphaNumber extends AbstractFunction implements UserDefined
 
     @Override
     public Function copy() {
-        return new IsAlphaNumber(this);
+        return new NationalSignificantNumber(this);
     }
 
     @Override
@@ -39,6 +35,6 @@ public final class IsAlphaNumber extends AbstractFunction implements UserDefined
 
     @Override
     public String toString() {
-        return PhoneNumberVocabulary.isAlphaNumber.name();
+        return PhoneNumberVocabulary.nationalSignificantNumber.name();
     }
 }

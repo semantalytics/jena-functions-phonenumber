@@ -5,12 +5,18 @@ import com.complexible.stardog.plan.filter.ExpressionVisitor;
 import com.complexible.stardog.plan.filter.functions.AbstractFunction;
 import com.complexible.stardog.plan.filter.functions.Function;
 import com.complexible.stardog.plan.filter.functions.UserDefinedFunction;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import org.openrdf.model.Value;
+
+import static com.complexible.common.rdf.model.Values.literal;
+import static com.google.i18n.phonenumbers.Phonenumber.*;
 
 public final class ExampleNumber extends AbstractFunction implements UserDefinedFunction {
 
+    private final PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+
     protected ExampleNumber() {
-        super(2, PhoneNumberVocabulary.exampleNumber.stringValue());
+        super(1, PhoneNumberVocabulary.exampleNumber.stringValue());
     }
 
     private ExampleNumber(final ExampleNumber exampleNumber) {
@@ -19,8 +25,10 @@ public final class ExampleNumber extends AbstractFunction implements UserDefined
 
     @Override
     protected Value internalEvaluate(final Value... values) throws ExpressionEvaluationException {
-      
-        return null;
+
+        final String regionCode = assertStringLiteral(values[0]).stringValue();
+
+        return literal(phoneNumberUtil.getExampleNumber(regionCode).toString());
     }
 
     @Override

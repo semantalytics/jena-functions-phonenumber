@@ -33,12 +33,11 @@ public final class IsPossibleNumber extends AbstractFunction implements UserDefi
 
         try {
             phoneNumberUtil.parse(number, regionCode, phoneNumber);
-
-            return literal(phoneNumberUtil.isPossibleNumber(phoneNumber));
-
         } catch (NumberParseException e) {
             throw new ExpressionEvaluationException(e);
         }
+
+        return literal(phoneNumberUtil.isPossibleNumber(phoneNumber));
     }
 
     @Override

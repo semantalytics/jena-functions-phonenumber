@@ -32,13 +32,11 @@ public class IsValidNumber extends AbstractFunction implements UserDefinedFuncti
         final String regionCode = assertStringLiteral(values[1]).stringValue();
 
         try {
-
             phoneNumberUtil.parse(number, regionCode, phoneNumber);
-            return literal(phoneNumberUtil.isValidNumber(phoneNumber));
-
         } catch (NumberParseException e) {
             throw new ExpressionEvaluationException(e);
         }
+        return literal(phoneNumberUtil.isValidNumber(phoneNumber));
     }
 
     @Override

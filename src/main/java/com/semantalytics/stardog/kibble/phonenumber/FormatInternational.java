@@ -38,7 +38,7 @@ public final class FormatInternational extends AbstractFunction implements UserD
             throw new ExpressionEvaluationException(e);
         }
 
-        return Values.literal(phoneNumberUtil.format(phoneNumber, PhoneNumberFormat.NATIONAL));
+        return Values.literal(phoneNumberUtil.format(phoneNumber, PhoneNumberFormat.INTERNATIONAL));
     }
 
     @Override
